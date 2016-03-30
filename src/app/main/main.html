@@ -1,0 +1,90 @@
+<div class="container main">
+
+
+  <h1 class="page-title">PLD Evaluation</h1>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <div class="panel panel-success stock-widget">
+        <div class="panel-heading">
+          <span class="share-price">
+            <span class="sign">
+              <span ng-if="main.stockWidget.sharePrice-main.stockWidget.previousPrice > 0"><i class="fa fa-caret-up"></i></span>
+              <span ng-if="main.stockWidget.sharePrice-main.stockWidget.previousPrice < 0"><i class="fa fa-caret-down"></i></span>
+            </span>
+            {{main.stockWidget.sharePrice | number:2}}
+          </span>
+          <span class="share-price-change">
+            <span class="sign">
+              <span ng-if="main.stockWidget.sharePrice-main.stockWidget.previousPrice > 0">+</span>
+              <span ng-if="main.stockWidget.sharePrice-main.stockWidget.previousPrice < 0">-</span>
+            </span>
+            {{main.abs(main.stockWidget.sharePrice-main.stockWidget.previousPrice)| number:2}} ({{main.percentChanged(main.stockWidget.sharePrice, main.stockWidget.previousPrice) | number:2 }}%)
+          </span>
+          <chartist class="ct-chart ct-octave line-chart" chartist-data="main.stockWidget.lineData" chartist-chart-type="Line" chartist-chart-options="main.lineOptions"></chartist>
+          <chartist class="ct-chart ct-major-eleventh bar-chart" chartist-data="main.stockWidget.barData" chartist-chart-type="Bar" chartist-chart-options="main.barOptions" ></chartist>
+
+        </div>
+        <div class="panel-body">
+          <span class="date">{{main.date}}</span>
+          <span class="location">{{main.stockWidget.location}}</span>
+          <div class="trade-cap clearfix">
+            <div class="block-data">
+              <span class="top-row">{{main.stockWidget.sharesTraded | numbroFilter: '0.0a'}}</span>
+              <span class="bottom-row">Shares Traded</span>
+            </div>
+            <div class="block-data">
+              <span class="top-row">{{main.stockWidget.marketCap | numbroFilter: '0.00a'}}</span>
+              <span class="bottom-row">Market Cap</span>
+            </div>
+          </div>
+          <div class="stock-footer clearfix">
+            <div class="mini-stock">
+              <span class="title">{{main.stockWidget.stockSymbol}}</span>
+              <div class="progress-boxes">
+                <div class="progress-box" ng-repeat="bar in main.stockWidget.progressData"><div class="progress-bar" ng-class="bar.class" style="height:{{bar.value*100}}%"></div></div>
+              </div>
+            </div>
+            <div class="yearly-change">
+              <span class="title">Yearly Change</span>
+              <div class="change-value">
+                <span class="change-text">{{main.stockWidget.yearlyChange}}</span>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="pie-charts">
+        <!-- bsActivePane is optional -->
+        <div bs-active-pane="tabs.activeTab" bs-tabs>
+          <div class="panel panel-default" ng-repeat="tab in tabs" data-item-index="{{$index}}" data-title="{{ tab.title }}" bs-pane>
+            <div class="panel-body" ng-include="tab.content">
+
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="main-values clearfix">
+            <div class="main-value" ng-repeat="value in main.chartWidgets[main.activeChart].pieData.series | limitTo:3 | orderBy:series:true" ng-class="'ct-series-'+main.chartWidgets[main.activeChart].pieData.ctValue[$index]">
+              <span class="top-row">{{main.chartWidgets[main.activeChart].pieData.labels[$index]}}</span>
+              <span class="bottom-row">{{main.percentOfArray(value, main.chartWidgets[main.activeChart].pieData.series) | number:0}}%</span>
+            </div>
+          </div>
+
+          <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group" bs-radio-group ng-model="main.footerBtns">
+            <label class="btn btn-brown"><input type="radio" class="btn btn-default" value="0"><i class="fa fa-cloud-upload"></i>Upload Files</label>
+            <label class="btn btn-brown"><input type="radio" class="btn btn-default" value="1"><i class="fa fa-share-alt"></i>Share Link</label>
+            <label class="btn btn-brown"><input type="radio" class="btn btn-default" value="2"><i class="fa fa-undo"></i>Backup</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>

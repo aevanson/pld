@@ -1,0 +1,9 @@
+<h4 class="chart-title">Data Transfer</h4>
+<div class="chart">
+  <div class="center-ring">
+    <span class="top-row">{{main.chartWidgets[0].fileCount | numbroFilter: '0,0'}} files</span>
+    <span class="bottom-row">{{main.chartWidgets[0].byteCount | numbroFilter: '0d'}}</span>
+  </div>
+  <chartist class="ct-chart ct-minor-second" chartist-data="main.chartWidgets[0].pieData" chartist-chart-type="Pie" chartist-chart-options="main.donutOptions" chartist-events="main.events"></chartist>
+</div>
+
