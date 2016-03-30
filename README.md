@@ -2,11 +2,11 @@
 
 This demo uses Angular and Bootstrap, and the basic framework was created using the Yeoman generator by Swiip: [generator-angular-gulp](https://github.com/Swiip/generator-gulp-angular).
 
-A lot of the files are framework related, but the ones to check out that are specific to this demo are in these folders:
+A lot of the files are framework related, but the ones to check out that are specific to this demo are in these files and folders:
 
 ```
 src/app/index.scss
-src/app/components
+src/app/components/
 src/app/main/
 ```
 
